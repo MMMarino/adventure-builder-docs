@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "title": "Adventure Builder API",
+    "description": "An API for retrieving and managing levels in the Adventure Builder game.",
     "license": {
       "name": "MIT"
     },
@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "http://api.adventure-builder.net"
     }
   ],
   "security": [
@@ -19,14 +19,15 @@
     }
   ],
   "paths": {
-    "/level": {
+    "/level/{id}": {
       "get": {
-        "description": "Returns all plants from the system that the user has access to",
+        "description": "Returns the data of a specific level by its ID.",
         "parameters": [
           {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
+            "name": "id",
+            "in": "path",
+            "description": "The ID of the level.",
+            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -35,56 +36,17 @@
         ],
         "responses": {
           "200": {
-            "description": "Plant response",
+            "description": "Level response",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
+                  "$ref": "#/components/schemas/Level"
                 }
               }
             }
           },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "description": "Creates a new plant in the store",
-        "requestBody": {
-          "description": "Plant to add to the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewPlant"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Plant"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "unexpected error",
+          "404": {
+            "description": "Level not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -96,28 +58,55 @@
         }
       }
     },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
+    "/levels/{filter}": {
+      "get": {
+        "description": "Retrieves multiple levels based on the filter (popular, featured, new, byuser/{builderId}).",
         "parameters": [
           {
-            "name": "id",
+            "name": "filter",
             "in": "path",
-            "description": "ID of plant to delete",
+            "description": "The filter to apply (popular, featured, new, or byuser/{builderId}).",
             "required": true,
             "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "builder",
+            "in": "query",
+            "description": "Optional filter by builder ID.",
+            "schema": {
               "type": "integer",
-              "format": "int64"
+              "format": "int32"
             }
           }
         ],
         "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
+          "200": {
+            "description": "Levels response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Level"
+                  }
+                }
+              }
+            }
           },
           "400": {
-            "description": "unexpected error",
+            "description": "Invalid filter or bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No levels found",
             "content": {
               "application/json": {
                 "schema": {
@@ -132,41 +121,46 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
+      "Level": {
         "required": [
-          "name"
+          "id",
+          "Title",
+          "Builder",
+          "Thumbnail",
+          "Plays",
+          "Featured"
         ],
         "type": "object",
         "properties": {
-          "name": {
-            "description": "The name of the plant",
+          "id": {
+            "description": "The unique ID of the level.",
+            "type": "integer",
+            "format": "int32"
+          },
+          "Title": {
+            "description": "The title of the level.",
             "type": "string"
           },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
+          "Builder": {
+            "description": "The ID of the builder who created the level.",
+            "type": "integer",
+            "format": "int32"
+          },
+          "Thumbnail": {
+            "description": "The thumbnail ID of the level.",
+            "type": "integer",
+            "format": "int32"
+          },
+          "Plays": {
+            "description": "The number of times the level has been played.",
+            "type": "integer",
+            "format": "int32"
+          },
+          "Featured": {
+            "description": "Whether the level is featured.",
+            "type": "boolean"
           }
         }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
       },
       "Error": {
         "required": [
