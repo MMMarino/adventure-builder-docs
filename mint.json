@@ -1,71 +1,71 @@
-{
-  "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
-  "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
-  },
-  "favicon": "/favicon.svg",
-  "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
-    "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
-    }
-  },
-  "topbarLinks": [
-    {
-      "name": "Support",
-      "url": "https://discord.gg/R6C2V5ChcQ"
-    }
-  ],
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
-  "anchors": [],
-  "navigation": [
-    {
-      "group": "Get Started",
-      "pages": [
-        "introduction",
-        "quickstart",
-        "development"
-      ]
-    },
-    {
-      "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
-      ]
-    },
-    {
-      "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
-      "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
-      ]
-    }
-  ],
-  "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
-  }
-}
+---
+title: Introduction
+description: 'Welcome to the home of your new documentation'
+---
+
+<img
+  className="block dark:hidden"
+  src="/images/hero-light.svg"
+  alt="Hero Light"
+/>
+<img
+  className="hidden dark:block"
+  src="/images/hero-dark.svg"
+  alt="Hero Dark"
+/>
+
+## Setting up
+
+The first step to world-class documentation is setting up your editing environments.
+
+<CardGroup cols={2}>
+  <Card
+    title="Edit Your Docs"
+    icon="pen-to-square"
+    href="https://mintlify.com/docs/quickstart"
+  >
+    Get your docs set up locally for easy development
+  </Card>
+  <Card
+    title="Preview Changes"
+    icon="image"
+    href="https://mintlify.com/docs/development"
+  >
+    Preview your changes before you push to make sure they're perfect
+  </Card>
+</CardGroup>
+
+## Make it yours
+
+Update your docs to your brand and add valuable content for the best user conversion.
+
+<CardGroup cols={2}>
+  <Card
+    title="Customize Style"
+    icon="palette"
+    href="https://mintlify.com/docs/settings/global"
+  >
+    Customize your docs to your company's colors and brands
+  </Card>
+  <Card
+    title="Reference APIs"
+    icon="code"
+    href="https://mintlify.com/docs/api-playground/openapi"
+  >
+    Automatically generate endpoints from an OpenAPI spec
+  </Card>
+  <Card
+    title="Add Components"
+    icon="screwdriver-wrench"
+    href="https://mintlify.com/docs/components/accordion"
+  >
+    Build interactive features and designs to guide your users
+  </Card>
+  <Card
+    title="Get Inspiration"
+    icon="stars"
+    href="https://mintlify.com/customers"
+  >
+    Check out our showcase of our favorite documentation
+  </Card>
+</CardGroup>
