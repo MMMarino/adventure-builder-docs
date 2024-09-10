@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Adventure Builder API",
-    "description": "An API for retrieving and managing levels in the Adventure Builder game.",
+    "description": "An API for retrieving levels in the Adventure Builder game.",
     "license": {
       "name": "MIT"
     },
@@ -57,66 +57,6 @@
           }
         }
       }
-    },
-    "/levels/{filter}": {
-      "get": {
-        "description": "Retrieves multiple levels based on the filter (popular, featured, new, byuser/{builderId}).",
-        "parameters": [
-          {
-            "name": "filter",
-            "in": "path",
-            "description": "The filter to apply (popular, featured, new, or byuser/{builderId}).",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "builder",
-            "in": "query",
-            "description": "Optional filter by builder ID.",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Levels response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Level"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid filter or bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No levels found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
@@ -124,11 +64,11 @@
       "Level": {
         "required": [
           "id",
-          "Title",
-          "Builder",
-          "Thumbnail",
-          "Plays",
-          "Featured"
+          "title",
+          "builder",
+          "thumbnail",
+          "plays",
+          "featured"
         ],
         "type": "object",
         "properties": {
@@ -137,26 +77,26 @@
             "type": "integer",
             "format": "int32"
           },
-          "Title": {
+          "title": {
             "description": "The title of the level.",
             "type": "string"
           },
-          "Builder": {
+          "builder": {
             "description": "The ID of the builder who created the level.",
             "type": "integer",
             "format": "int32"
           },
-          "Thumbnail": {
+          "thumbnail": {
             "description": "The thumbnail ID of the level.",
             "type": "integer",
             "format": "int32"
           },
-          "Plays": {
+          "plays": {
             "description": "The number of times the level has been played.",
             "type": "integer",
             "format": "int32"
           },
-          "Featured": {
+          "featured": {
             "description": "Whether the level is featured.",
             "type": "boolean"
           }
