@@ -53,67 +53,6 @@
           }
         }
       }
-    },
-    "/levels/{filter}": {
-      "get": {
-        "description": "Returns a list of levels based on the provided filter. Only one filter is allowed per request. Optional query parameter `builder` can be used to filter by a specific builder ID.",
-        "parameters": [
-          {
-            "name": "filter",
-            "in": "path",
-            "description": "The filter to apply. Possible values: `popular`, `featured`, `new`, or `byuser/{builderId}`.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "builder",
-            "in": "query",
-            "description": "The ID of the builder to filter levels by. Used in conjunction with `byuser/{builderId}` filter.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Levels response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Level"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid filter",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No levels found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
