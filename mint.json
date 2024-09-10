@@ -27,13 +27,7 @@
       "url": "api-reference"
     }
   ],
-  "anchors": [
-    {
-      "name": "Community",
-      "icon": "discord",
-      "url": "https://discord.gg/R6C2V5ChcQ"
-    }
-  ],
+  "anchors": [],
   "navigation": [
     {
       "group": "Get Started",
