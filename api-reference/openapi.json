@@ -58,14 +58,7 @@
   "components": {
     "schemas": {
       "Level": {
-        "required": [
-          "id",
-          "title",
-          "builder",
-          "thumbnail",
-          "plays",
-          "featured"
-        ],
+        "required": [],
         "type": "object",
         "properties": {
           "id": {
