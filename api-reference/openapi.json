@@ -13,11 +13,7 @@
       "url": "http://api.adventure-builder.net"
     }
   ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
+  "security": [],
   "paths": {
     "/level/{id}": {
       "get": {
