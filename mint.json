@@ -19,6 +19,7 @@
       "to": "#07C983"
     }
   },
+  "background": [{"styling": "windows"}],
   "topbarLinks": [
     {
       "name": "Support",
