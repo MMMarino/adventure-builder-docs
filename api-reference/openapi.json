@@ -15,12 +15,12 @@
   ],
   "security": [],
   "paths": {
-    "/level/{level_id}": {
+    "/level/{level-id}": {
       "get": {
-        "description": "Returns the data of a specific level by its level_id.",
+        "description": "Returns the data of a specific level by its level-id.",
         "parameters": [
           {
-            "name": "level_id",
+            "name": "level-id",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
@@ -54,12 +54,12 @@
         }
       }
     },
-    "/leaderboard/{level_id}": {
+    "/leaderboard/{level-id}": {
       "get": {
         "description": "Returns the leaderboard entries for a specific level.",
         "parameters": [
           {
-            "name": "level_id",
+            "name": "level-id",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
