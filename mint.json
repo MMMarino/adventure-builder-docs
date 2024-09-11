@@ -19,7 +19,7 @@
       "to": "#07C983"
     }
   },
-  "background": {"styling": "windows"},
+  "background": {"styling": "grid"},
   "topbarLinks": [
     {
       "name": "Support",
@@ -28,7 +28,8 @@
   ],
   "topbarCtaButton": {
     "name": "Game",
-    "url": "https://www.roblox.com/games/15498261012/Adventure-Builder"
+    "url": "https://www.roblox.com/games/15498261012/Adventure-Builder",
+    "style": "roundedRectangle"
   },
   "tabs": [
     {
