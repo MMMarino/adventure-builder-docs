@@ -59,14 +59,9 @@
       ]
     },
     {
-      "group": "Level Endpoints",
+      "group": "Endpoints",
       "pages": [
-        "api-reference/endpoint/level"
-      ]
-    },
-        {
-      "group": "Leaderboard Endpoints",
-      "pages": [
+        "api-reference/endpoint/level",
         "api-reference/endpoint/leaderboard"
       ]
     }
