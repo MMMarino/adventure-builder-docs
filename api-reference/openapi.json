@@ -270,7 +270,7 @@
         ],
         "type": "object",
         "properties": {
-          "level_id": {
+          "id": {
             "description": "The unique ID of the level.",
             "type": "integer",
             "format": "int32"
