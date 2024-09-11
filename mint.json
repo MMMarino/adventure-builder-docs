@@ -67,8 +67,9 @@
       ]
     },
     {
-      "group": "External",
+      "group": "External Resources",
       "pages": [
+        "api-reference/external/thumbnail",
         "api-reference/external/user"
       ]
     }

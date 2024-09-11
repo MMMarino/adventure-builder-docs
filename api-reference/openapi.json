@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Adventure Builder API",
-    "description": "An API for retrieving levels and leaderboards in the Adventure Builder game.",
+    "description": "An API for retrieving levels, leaderboards, assets, and user information in the Adventure Builder game.",
     "license": {
       "name": "MIT"
     },
@@ -125,25 +125,54 @@
         }
       ],
       "get": {
-        "description": "Returns the image for a given thumbnail ID.",
+        "description": "Returns the images for given thumbnail IDs.",
         "parameters": [
           {
             "name": "assetIds",
             "in": "query",
-            "description": "The ID of the thumbnail.",
+            "description": "The IDs of the thumbnails.",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              }
             }
           },
           {
             "name": "size",
             "in": "query",
             "description": "The size of the thumbnail.",
-            "required": false,
+            "required": true,
             "schema": {
               "type": "string",
+              "enum": [
+                "30x30",
+                "42x42",
+                "50x50",
+                "60x62",
+                "75x75",
+                "110x110",
+                "140x140",
+                "150x150",
+                "160x100",
+                "160x600",
+                "250x250",
+                "256x144",
+                "300x250",
+                "304x166",
+                "384x216",
+                "396x216",
+                "420x420",
+                "480x270",
+                "512x512",
+                "576x324",
+                "700x700",
+                "728x90",
+                "768x432",
+                "1200x80"
+              ],
               "default": "512x512"
             }
           },
@@ -151,9 +180,14 @@
             "name": "format",
             "in": "query",
             "description": "The format of the thumbnail.",
-            "required": false,
+            "required": true,
             "schema": {
               "type": "string",
+              "enum": [
+                "Png",
+                "Jpeg",
+                "Webp"
+              ],
               "default": "Png"
             }
           }
@@ -164,13 +198,60 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AssetThumbnail"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AssetThumbnail"
+                  }
                 }
               }
             }
           },
           "400": {
             "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/{user_id}": {
+      "servers": [
+        {
+          "url": "https://users.roblox.com"
+        }
+      ],
+      "get": {
+        "description": "Returns information about a specific Roblox user.",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "The ID of the user.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User information response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -257,6 +338,34 @@
             "type": "string"
           },
           "imageUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "UserInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isBanned": {
+            "type": "boolean"
+          },
+          "externalAppDisplayName": {
             "type": "string"
           }
         }
