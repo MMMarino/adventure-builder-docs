@@ -15,12 +15,12 @@
   ],
   "security": [],
   "paths": {
-    "/level/{id}": {
+    "/level/{level_id}": {
       "get": {
-        "description": "Returns the data of a specific level by its ID.",
+        "description": "Returns the data of a specific level by its level_id.",
         "parameters": [
           {
-            "name": "id",
+            "name": "level_id",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
@@ -54,18 +54,30 @@
         }
       }
     },
-    "/leaderboard/{id}": {
+    "/leaderboard/{level_id}": {
       "get": {
         "description": "Returns the leaderboard entries for a specific level.",
         "parameters": [
           {
-            "name": "id",
+            "name": "level_id",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of entries to return (max: 30).",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 30,
+              "maximum": 30
             }
           }
         ],
@@ -113,7 +125,7 @@
         "required": [],
         "type": "object",
         "properties": {
-          "id": {
+          "level_id": {
             "description": "The unique ID of the level.",
             "type": "integer",
             "format": "int32"
