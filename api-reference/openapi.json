@@ -71,7 +71,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "The maximum number of entries to return (max: 30).",
+            "description": "The maximum number of entries to return.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -162,11 +162,6 @@
         "properties": {
           "id": {
             "description": "The unique ID of the leaderboard entry.",
-            "type": "integer",
-            "format": "int32"
-          },
-          "level_id": {
-            "description": "The ID of the level this entry belongs to.",
             "type": "integer",
             "format": "int32"
           },
