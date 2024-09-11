@@ -10,6 +10,10 @@
     "primary": "#0D9373",
     "light": "#07C983",
     "dark": "#16A085",
+    "background": {
+      "light": "#fafafa",
+      "dark": "#353535"
+    },
     "anchors": {
       "from": "#0D9373",
       "to": "#07C983"
@@ -22,7 +26,7 @@
     }
   ],
   "topbarCtaButton": {
-    "name": "Play",
+    "name": "Game",
     "url": "https://www.roblox.com/games/15498261012/Adventure-Builder"
   },
   "tabs": [
