@@ -217,7 +217,7 @@
         }
       }
     },
-    "/v1/users/{user_id}": {
+    "/v1/users/{user-id}": {
       "servers": [
         {
           "url": "https://users.roblox.com"
@@ -227,7 +227,7 @@
         "description": "Returns information about a specific Roblox user.",
         "parameters": [
           {
-            "name": "user_id",
+            "name": "user-id",
             "in": "path",
             "description": "The ID of the user.",
             "required": true,
