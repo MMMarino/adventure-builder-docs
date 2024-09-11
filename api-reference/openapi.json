@@ -20,7 +20,7 @@
         "description": "Returns the data of a specific level by its ID.",
         "parameters": [
           {
-            "name": "id",
+            "name": "level_id",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
