@@ -172,8 +172,7 @@
                 "728x90",
                 "768x432",
                 "1200x80"
-              ],
-              "default": "512x512"
+              ]
             }
           },
           {
@@ -187,8 +186,7 @@
                 "Png",
                 "Jpeg",
                 "Webp"
-              ],
-              "default": "Png"
+              ]
             }
           }
         ],
@@ -347,23 +345,33 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string"
+            "format": "int64",
+            "description": "The user's user ID."
           },
           "displayName": {
-            "type": "string"
+            "type": "string",
+            "description": "The user's display name."
+          },
+          "name": {
+            "type": "string",
+            "description": "The user's username."
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "description": "The user's description."
           },
           "created": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "When the user's profile was created."
+          },
+          "hasVerifiedBadge": {
+            "type": "boolean",
+            "description": "Whether the user has the verified badge."
           },
           "isBanned": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the user is banned."
           },
           "externalAppDisplayName": {
             "type": "string"
