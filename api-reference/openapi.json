@@ -67,18 +67,6 @@
               "type": "integer",
               "format": "int32"
             }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of entries to return (max: 30).",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 30,
-              "maximum": 30
-            }
           }
         ],
         "responses": {
