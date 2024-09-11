@@ -15,12 +15,12 @@
   ],
   "security": [],
   "paths": {
-    "/level/{level_id}": {
+    "/level/{id}": {
       "get": {
         "description": "Returns the data of a specific level by its ID.",
         "parameters": [
           {
-            "name": "level_id",
+            "name": "id",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
