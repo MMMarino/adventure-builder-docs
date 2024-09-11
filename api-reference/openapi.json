@@ -15,12 +15,12 @@
   ],
   "security": [],
   "paths": {
-    "/level/{id}": {
+    "/level/{level_id}": {
       "get": {
-        "description": "Returns the data of a specific level by its ID.",
+        "description": "Returns the data of a specific level by its level_id.",
         "parameters": [
           {
-            "name": "id",
+            "name": "level_id",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
@@ -54,12 +54,12 @@
         }
       }
     },
-    "/leaderboard/{id}": {
+    "/leaderboard/{level_id}": {
       "get": {
         "description": "Returns the leaderboard entries for a specific level.",
         "parameters": [
           {
-            "name": "id",
+            "name": "level_id",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
@@ -95,8 +95,8 @@
               }
             }
           },
-          "404": {
-            "description": "No leaderboard entries found for this level",
+          "400": {
+            "description": "Invalid limit parameter",
             "content": {
               "application/json": {
                 "schema": {
@@ -105,8 +105,8 @@
               }
             }
           },
-          "400": {
-            "description": "Invalid limit parameter",
+          "404": {
+            "description": "No leaderboard entries found for this level",
             "content": {
               "application/json": {
                 "schema": {
@@ -122,10 +122,12 @@
   "components": {
     "schemas": {
       "Level": {
-        "required": ["id"],
+        "required": [
+          "id"
+        ],
         "type": "object",
         "properties": {
-          "id": {
+          "level_id": {
             "description": "The unique ID of the level.",
             "type": "integer",
             "format": "int32"
@@ -157,7 +159,6 @@
       },
       "LeaderboardEntry": {
         "type": "object",
-        "required": ["id"],
         "properties": {
           "id": {
             "description": "The unique ID of the leaderboard entry.",
