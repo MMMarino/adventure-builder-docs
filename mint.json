@@ -65,6 +65,12 @@
         "api-reference/endpoint/level",
         "api-reference/endpoint/leaderboard"
       ]
+    },
+    {
+      "group": "External",
+      "pages": [
+        "api-reference/external/user"
+      ]
     }
   ],
   "footerSocials": {}

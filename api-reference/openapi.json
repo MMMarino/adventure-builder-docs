@@ -117,6 +117,70 @@
           }
         }
       }
+    },
+    "/v1/assets": {
+      "servers": [
+        {
+          "url": "https://thumbnails.roblox.com"
+        }
+      ],
+      "get": {
+        "description": "Returns the image for a given thumbnail ID.",
+        "parameters": [
+          {
+            "name": "assetIds",
+            "in": "query",
+            "description": "The ID of the thumbnail.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the thumbnail.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "512x512"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "The format of the thumbnail.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "Png"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Asset thumbnail response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetThumbnail"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -144,7 +208,7 @@
           "thumbnail": {
             "description": "The thumbnail ID of the level.",
             "type": "integer",
-            "format": "int32"
+            "format": "int64"
           },
           "plays": {
             "description": "The number of times the level has been played.",
@@ -179,6 +243,21 @@
             "description": "The timestamp when this entry was created.",
             "type": "string",
             "format": "date-time"
+          }
+        }
+      },
+      "AssetThumbnail": {
+        "type": "object",
+        "properties": {
+          "targetId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "state": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
           }
         }
       },
