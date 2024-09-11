@@ -17,7 +17,7 @@
   "paths": {
     "/level/{level_id}": {
       "get": {
-        "description": "Returns the data of a specific level by its level_id.",
+        "description": "Returns the data of a specific level by its ID.",
         "parameters": [
           {
             "name": "level_id",
