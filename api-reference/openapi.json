@@ -122,6 +122,7 @@
   "components": {
     "schemas": {
       "Level": {
+        "required": ["id"],
         "type": "object",
         "properties": {
           "id": {
@@ -156,6 +157,7 @@
       },
       "LeaderboardEntry": {
         "type": "object",
+        "required": ["id"],
         "properties": {
           "id": {
             "description": "The unique ID of the leaderboard entry.",
