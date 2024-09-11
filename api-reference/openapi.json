@@ -15,12 +15,12 @@
   ],
   "security": [],
   "paths": {
-    "/level/{level}": {
+    "/level/{id}": {
       "get": {
         "description": "Returns the data of a specific level by its ID.",
         "parameters": [
           {
-            "name": "level",
+            "name": "id",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
@@ -54,12 +54,12 @@
         }
       }
     },
-    "/leaderboard/{level}": {
+    "/leaderboard/{id}": {
       "get": {
         "description": "Returns the leaderboard entries for a specific level.",
         "parameters": [
           {
-            "name": "level",
+            "name": "id",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
@@ -125,7 +125,7 @@
         "required": [],
         "type": "object",
         "properties": {
-          "level": {
+          "id": {
             "description": "The unique ID of the level.",
             "type": "integer",
             "format": "int32"
@@ -163,7 +163,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "level": {
+          "level_id": {
             "description": "The ID of the level this entry belongs to.",
             "type": "integer",
             "format": "int32"
@@ -210,4 +210,3 @@
     }
   }
 }
-
