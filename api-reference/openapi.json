@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Adventure Builder API",
-    "description": "An API for retrieving levels in the Adventure Builder game.",
+    "description": "An API for retrieving levels and leaderboards in the Adventure Builder game.",
     "license": {
       "name": "MIT"
     },
@@ -53,6 +53,70 @@
           }
         }
       }
+    },
+    "/leaderboard/{level_id}": {
+      "get": {
+        "description": "Returns the leaderboard entries for a specific level.",
+        "parameters": [
+          {
+            "name": "level_id",
+            "in": "path",
+            "description": "The ID of the level.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of entries to return (default: 10, max: 30).",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10,
+              "maximum": 30
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Leaderboard entries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LeaderboardEntry"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No leaderboard entries found for this level",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid limit parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -91,6 +155,36 @@
           }
         }
       },
+      "LeaderboardEntry": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The unique ID of the leaderboard entry.",
+            "type": "integer",
+            "format": "int32"
+          },
+          "level_id": {
+            "description": "The ID of the level this entry belongs to.",
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "description": "The ID of the user who created this entry.",
+            "type": "integer",
+            "format": "int32"
+          },
+          "time": {
+            "description": "The completion time for this entry.",
+            "type": "number",
+            "format": "float"
+          },
+          "created_at": {
+            "description": "The timestamp when this entry was created.",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
       "Error": {
         "required": [
           "error",
@@ -116,4 +210,3 @@
     }
   }
 }
-
