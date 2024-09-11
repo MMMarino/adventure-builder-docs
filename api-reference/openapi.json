@@ -374,7 +374,8 @@
             "description": "Whether the user is banned."
           },
           "externalAppDisplayName": {
-            "type": "string"
+            "type": "string",
+            "description": "I've got no idea what this does, sorry."
           }
         }
       },
