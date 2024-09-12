@@ -15,7 +15,7 @@
   ],
   "security": [],
   "paths": {
-    "/level/{level-id}": {
+    "/v1/level/{level-id}": {
       "get": {
         "description": "Returns the data of a specific level by its level-id.",
         "parameters": [
@@ -54,7 +54,7 @@
         }
       }
     },
-    "/leaderboard/{level-id}": {
+    "/v1/leaderboard/{level-id}": {
       "get": {
         "description": "Returns the leaderboard entries for a specific level.",
         "parameters": [
