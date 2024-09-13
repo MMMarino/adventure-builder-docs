@@ -1,6 +1,9 @@
 {
   "$schema": "https://mintlify.com/schema.json",
   "name": "Adventure Builder API",
+  "metadata": {
+    "og:site_name": "Documentation"
+  },
   "logo": {
     "dark": "/logo/dark.png",
     "light": "/logo/light.png"
@@ -37,8 +40,7 @@
     {
       "group": "API Documentation",
       "pages": [
-        "api-reference/introduction",
-        "api-reference/userInfo"
+        "api-reference/introduction"
       ]
     },
     {
