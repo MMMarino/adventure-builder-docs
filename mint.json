@@ -31,33 +31,9 @@
     "url": "https://www.roblox.com/games/15498261012/Adventure-Builder",
     "style": "roundedRectangle"
   },
-  "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
-    }
-  ],
+  "tabs": [],
   "anchors": [],
   "navigation": [
-    {
-      "group": "Get Started",
-      "pages": [
-        "introduction",
-        "quickstart",
-        "development"
-      ]
-    },
-    {
-      "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
-      ]
-    },
     {
       "group": "API Documentation",
       "pages": [
@@ -77,6 +53,12 @@
       "pages": [
         "api-reference/external/thumbnail",
         "api-reference/external/user"
+      ]
+    },
+    {
+      "group": "Legal",
+      "pages": [
+        "api-reference/legal/tos"
       ]
     }
   ],
