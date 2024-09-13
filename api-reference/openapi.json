@@ -87,8 +87,10 @@
             "required": false,
             "schema": {
               "type": "array",
-              "format": "int32"
-            }
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              }
           }
         ],
         "responses": {
