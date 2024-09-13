@@ -79,6 +79,16 @@
               "default": 30,
               "maximum": 30
             }
+          },
+          {
+            "name": "userIds",
+            "in": "query",
+            "description": "Filter by an array of user IDs.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "format": "int32"
+            }
           }
         ],
         "responses": {
