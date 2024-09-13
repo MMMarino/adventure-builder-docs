@@ -1,37 +1,54 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'Integrate Adventure Builder in your own applications.'
 ---
-
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+<Warning>This API is still in beta, be on the lookout for changes.</Warning>
 
 <img
   src="/images/Image2.png"
 />
 
-## Welcome
+Welcome to the **Adventure Builder API** documentation! 
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+This API allows you to interact with various data from the *Adventure Builder* game. Whether you're looking to retrieve information about levels or fetch leaderboards, this API provides the necessary endpoints to access this data.
+
+<CardGroup cols={2}>
+  <Card
+    title="Level Endpoint"
+    icon="map"
+    href="https://mintlify.com/docs/quickstart"
+  >
+    Retrieve surface level data from an ID.
+  </Card>
+  <Card
+    title="Leaderboard Endpoint"
+    icon="trophy"
+    href="https://mintlify.com/docs/development"
+  >
+    Get the leaderboard for a level.
+  </Card>
+</CardGroup>
 
 <Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
+  title="ROBLOX model"
+  icon="play"
+  href="https://mintlify.com/docs/quickstart"
 >
-  View the OpenAPI specification file
+  Try the API in-game with our free model.
 </Card>
 
-## Authentication
+<Note>The API currently does not require an API-key.</Note>
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+## Limitations
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```
+<Accordion title="Requests per second" icon="clock">
+  The API supports a maximum of 3 requests per second.
+</Accordion>
+
+<Accordion title="Leaderboard Entries" icon="list">
+  The leaderboard endpoint currently returns up to 30 entries.
+</Accordion>
+
+<Accordion title="Beta Status" icon="exclamation">
+  The API is still in beta, and features are subject to change.
+</Accordion>
