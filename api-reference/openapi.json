@@ -87,6 +87,7 @@
             "required": false,
             "schema": {
               "type": "array",
+              "default": [],
               "items": {
                 "type": "integer",
                 "format": "int64"
