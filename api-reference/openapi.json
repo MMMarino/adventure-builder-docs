@@ -74,9 +74,9 @@
             }
           },
           {
-            "name": "user-ids",
+            "name": "builder",
             "in": "query",
-            "description": "The IDs of the users to filter levels by.",
+            "description": "The ID of the builder to filter levels by.",
             "required": false,
             "schema": {
               "type": "integer"
