@@ -15,12 +15,12 @@
   ],
   "security": [],
   "paths": {
-    "/level/{level_id}": {
+    "/v1/level/{level-id}": {
       "get": {
-        "description": "Returns the data of a specific level by its level_id.",
+        "description": "Returns the data of a specific level by its level-id.",
         "parameters": [
           {
-            "name": "level_id",
+            "name": "level-id",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
@@ -54,12 +54,116 @@
         }
       }
     },
-    "/leaderboard/{level_id}": {
+    "/v1/level-list": {
+      "get": {
+        "description": "Returns a paginated list of levels based on specified criteria.",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "The category to filter levels by.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "popular",
+                "featured",
+                "new"
+              ],
+              "default": "popular"
+            }
+          },
+          {
+            "name": "user-ids",
+            "in": "query",
+            "description": "The IDs of the users to filter levels by.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number of results to return.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "The number of items to return per page.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 30
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of levels",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "levels": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Level"
+                      }
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "Total number of levels matching the query"
+                    },
+                    "page": {
+                      "type": "integer",
+                      "description": "Current page number"
+                    },
+                    "per_page": {
+                      "type": "integer",
+                      "description": "Number of items per page"
+                    },
+                    "total_pages": {
+                      "type": "integer",
+                      "description": "Total number of pages"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/leaderboard/{level-id}": {
       "get": {
         "description": "Returns the leaderboard entries for a specific level.",
         "parameters": [
           {
-            "name": "level_id",
+            "name": "level-id",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
@@ -78,6 +182,20 @@
               "format": "int32",
               "default": 30,
               "maximum": 30
+            }
+          },
+          {
+            "name": "userIds",
+            "in": "query",
+            "description": "Filter by an array of user IDs.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              }
             }
           }
         ],
@@ -172,8 +290,7 @@
                 "728x90",
                 "768x432",
                 "1200x80"
-              ],
-              "default": "512x512"
+              ]
             }
           },
           {
@@ -187,8 +304,7 @@
                 "Png",
                 "Jpeg",
                 "Webp"
-              ],
-              "default": "Png"
+              ]
             }
           }
         ],
@@ -219,7 +335,7 @@
         }
       }
     },
-    "/v1/users/{user_id}": {
+    "/v1/users/{user-id}": {
       "servers": [
         {
           "url": "https://users.roblox.com"
@@ -229,7 +345,7 @@
         "description": "Returns information about a specific Roblox user.",
         "parameters": [
           {
-            "name": "user_id",
+            "name": "user-id",
             "in": "path",
             "description": "The ID of the user.",
             "required": true,
@@ -272,7 +388,7 @@
         ],
         "type": "object",
         "properties": {
-          "level_id": {
+          "id": {
             "description": "The unique ID of the level.",
             "type": "integer",
             "format": "int32"
@@ -299,6 +415,15 @@
           "featured": {
             "description": "Whether the level is featured.",
             "type": "boolean"
+          },
+          "theme": {
+            "description": "The theme of the level.",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "The timestamp when the level was created.",
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
@@ -347,26 +472,37 @@
         "properties": {
           "id": {
             "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string"
+            "format": "int64",
+            "description": "The user's user ID."
           },
           "displayName": {
-            "type": "string"
+            "type": "string",
+            "description": "The user's display name."
+          },
+          "name": {
+            "type": "string",
+            "description": "The user's username."
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "description": "The user's description."
           },
           "created": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "When the user's profile was created."
+          },
+          "hasVerifiedBadge": {
+            "type": "boolean",
+            "description": "Whether the user has the verified badge."
           },
           "isBanned": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the user is banned."
           },
           "externalAppDisplayName": {
-            "type": "string"
+            "type": "string",
+            "description": "I've got no idea what this does, sorry."
           }
         }
       },
