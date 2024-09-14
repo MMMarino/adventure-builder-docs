@@ -1,6 +1,6 @@
 ---
 title: 'Introduction'
-description: 'Integrate Adventure Builder in your own applications.'
+description: 'Integrate Adventure Builder into your own applications.'
 ---
 <Warning>This API is still in beta, be on the lookout for changes.</Warning>
 
@@ -10,31 +10,36 @@ description: 'Integrate Adventure Builder in your own applications.'
 
 Welcome to the **Adventure Builder API** documentation! 
 
-This API allows you to interact with various data from the *Adventure Builder* game. Whether you're looking to retrieve information about levels or fetch leaderboards, this API provides the necessary endpoints to access this data.
+This API allows you to interact with various data from the Adventure Builder database. Whether you're looking to retrieve information about levels or fetch leaderboards, this API provides the necessary endpoints to access this data.
 
-<CardGroup cols={2}>
+<CardGroup cols={3}>
   <Card
     title="Level Endpoint"
-    icon="map"
-    href="https://google.com"
+    icon="cube"
+    href="api-reference/endpoint/level"
   >
-    Retrieve surface level data from an ID.
+    Retrieve level data using an ID.
+  </Card>
+  <Card
+    title="Level-List Endpoint"
+    icon="map"
+    href="api-reference/endpoint/level-list"
+  >
+    Get a list of levels based on filters.
   </Card>
   <Card
     title="Leaderboard Endpoint"
     icon="trophy"
-    href="https://google.com"
+    href="api-reference/endpoint/leaderboard"
   >
     Get the leaderboard for a level.
   </Card>
 </CardGroup>
 
 <Card
-  title="ROBLOX Model"
-  icon="play"
+  title="Roblox Model"
+  icon="folder"
   href="https://google.com"
 >
   Try the API in-game with our free model.
 </Card>
-
-<Note>The API currently does not require an API-key.</Note>
