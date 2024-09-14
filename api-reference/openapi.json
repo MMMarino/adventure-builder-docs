@@ -59,18 +59,44 @@
         "description": "Returns a paginated list of levels based on specified criteria. Each page contains 30 items.",
         "parameters": [
           {
-            "name": "category",
+            "name": "sort",
             "in": "query",
-            "description": "The category to filter levels by.",
+            "description": "The sorting method for levels.",
             "required": false,
             "schema": {
               "type": "string",
               "enum": [
                 "popular",
-                "featured",
                 "new"
               ],
               "default": "popular"
+            }
+          },
+          {
+            "name": "featured",
+            "in": "query",
+            "description": "Filter for featured levels.",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "theme",
+            "in": "query",
+            "description": "Filter levels by theme.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "plains",
+                "forest",
+                "space",
+                "clouds",
+                "cave",
+                "sfoth"
+              ]
             }
           },
           {
@@ -109,22 +135,19 @@
                       }
                     },
                     "pagination": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "total": {
-                            "type": "integer",
-                            "description": "Total number of levels matching the query"
-                          },
-                          "page": {
-                            "type": "integer",
-                            "description": "Current page number"
-                          },
-                          "total_pages": {
-                            "type": "integer",
-                            "description": "Total number of pages"
-                          }
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "integer",
+                          "description": "Total number of levels matching the query"
+                        },
+                        "page": {
+                          "type": "integer",
+                          "description": "Current page number"
+                        },
+                        "total_pages": {
+                          "type": "integer",
+                          "description": "Total number of pages"
                         }
                       }
                     }
