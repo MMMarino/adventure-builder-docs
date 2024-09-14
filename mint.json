@@ -47,6 +47,7 @@
       "group": "Endpoints",
       "pages": [
         "api-reference/endpoint/level",
+        "api-reference/endpoint/level-list",
         "api-reference/endpoint/leaderboard"
       ]
     },
