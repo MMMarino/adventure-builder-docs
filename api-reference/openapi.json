@@ -56,7 +56,7 @@
     },
     "/v1/level-list": {
       "get": {
-        "description": "Returns a paginated list of levels based on specified criteria.",
+        "description": "Returns a paginated list of levels based on specified criteria. Each page contains 30 items.",
         "parameters": [
           {
             "name": "category",
@@ -79,11 +79,7 @@
             "description": "The IDs of the users to filter levels by.",
             "required": false,
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "integer",
-                "format": "int64"
-              }
+              "type": "integer"
             }
           },
           {
@@ -95,18 +91,6 @@
               "type": "integer",
               "minimum": 1,
               "default": 1
-            }
-          },
-          {
-            "name": "per_page",
-            "in": "query",
-            "description": "The number of items to return per page.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100,
-              "default": 30
             }
           }
         ],
@@ -125,23 +109,22 @@
                       }
                     },
                     "pagination": {
-                      "type": "object",
-                      "properties": {
-                        "total": {
-                          "type": "integer",
-                          "description": "Total number of levels matching the query"
-                        },
-                        "page": {
-                          "type": "integer",
-                          "description": "Current page number"
-                        },
-                        "per_page": {
-                          "type": "integer",
-                          "description": "Number of items per page"
-                        },
-                        "total_pages": {
-                          "type": "integer",
-                          "description": "Total number of pages"
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "total": {
+                            "type": "integer",
+                            "description": "Total number of levels matching the query"
+                          },
+                          "page": {
+                            "type": "integer",
+                            "description": "Current page number"
+                          },
+                          "total_pages": {
+                            "type": "integer",
+                            "description": "Total number of pages"
+                          }
                         }
                       }
                     }
@@ -388,93 +371,150 @@
   "components": {
     "schemas": {
       "Level": {
+        "required": [
+          "id"
+        ],
         "type": "object",
         "properties": {
-          "level_id": {
+          "id": {
+            "description": "The unique ID of the level.",
             "type": "integer",
-            "description": "The ID of the level."
+            "format": "int32"
           },
-          "name": {
+          "title": {
+            "description": "The title of the level.",
+            "type": "string"
+          },
+          "builder": {
+            "description": "The ID of the builder who created the level.",
+            "type": "integer",
+            "format": "int32"
+          },
+          "thumbnail": {
+            "description": "The thumbnail ID of the level.",
+            "type": "integer",
+            "format": "int64"
+          },
+          "plays": {
+            "description": "The number of times the level has been played.",
+            "type": "integer",
+            "format": "int32"
+          },
+          "featured": {
+            "description": "Whether the level is featured.",
+            "type": "boolean"
+          },
+          "theme": {
+            "description": "The theme of the level.",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "The timestamp when the level was created.",
             "type": "string",
-            "description": "The name of the level."
-          },
-          "description": {
-            "type": "string",
-            "description": "A brief description of the level."
-          },
-          "creator_id": {
-            "type": "integer",
-            "description": "The user ID of the creator."
-          },
-          "play_count": {
-            "type": "integer",
-            "description": "Number of times the level has been played."
-          },
-          "like_count": {
-            "type": "integer",
-            "description": "Number of likes for the level."
+            "format": "date-time"
           }
         }
       },
       "LeaderboardEntry": {
         "type": "object",
         "properties": {
-          "rank": {
+          "id": {
+            "description": "The unique ID of the leaderboard entry.",
             "type": "integer",
-            "description": "The rank of the player."
+            "format": "int32"
           },
-          "user_id": {
+          "userId": {
+            "description": "The ID of the user who created this entry.",
             "type": "integer",
-            "description": "The user ID of the player."
+            "format": "int32"
           },
-          "score": {
-            "type": "integer",
-            "description": "The score of the player."
+          "time": {
+            "description": "The completion time for this entry.",
+            "type": "number",
+            "format": "float"
+          },
+          "created_at": {
+            "description": "The timestamp when this entry was created.",
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
       "AssetThumbnail": {
         "type": "object",
         "properties": {
-          "asset_id": {
+          "targetId": {
             "type": "integer",
-            "description": "The ID of the asset."
+            "format": "int64"
           },
-          "image_url": {
-            "type": "string",
-            "description": "The URL of the image."
+          "state": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
           }
         }
       },
       "UserInfo": {
         "type": "object",
         "properties": {
-          "user_id": {
+          "id": {
             "type": "integer",
-            "description": "The user ID of the Roblox user."
+            "format": "int64",
+            "description": "The user's user ID."
           },
-          "username": {
+          "displayName": {
             "type": "string",
-            "description": "The username of the Roblox user."
+            "description": "The user's display name."
           },
-          "avatar_url": {
+          "name": {
             "type": "string",
-            "description": "The avatar URL of the user."
+            "description": "The user's username."
+          },
+          "description": {
+            "type": "string",
+            "description": "The user's description."
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the user's profile was created."
+          },
+          "hasVerifiedBadge": {
+            "type": "boolean",
+            "description": "Whether the user has the verified badge."
+          },
+          "isBanned": {
+            "type": "boolean",
+            "description": "Whether the user is banned."
+          },
+          "externalAppDisplayName": {
+            "type": "string",
+            "description": "I've got no idea what this does, sorry."
           }
         }
       },
       "Error": {
+        "required": [
+          "error",
+          "message"
+        ],
         "type": "object",
         "properties": {
-          "code": {
+          "error": {
             "type": "integer",
-            "description": "Error code."
+            "format": "int32"
           },
           "message": {
-            "type": "string",
-            "description": "Error message."
+            "type": "string"
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
       }
     }
   }
