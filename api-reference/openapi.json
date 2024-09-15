@@ -15,12 +15,12 @@
   ],
   "security": [],
   "paths": {
-    "/v1/level/{level-id}": {
+    "/v1/level/{level_id}": {
       "get": {
-        "description": "Returns the data of a specific level by its level-id.",
+        "description": "Returns the data of a specific level by its ID.",
         "parameters": [
           {
-            "name": "level-id",
+            "name": "level_id",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
@@ -54,7 +54,7 @@
         }
       }
     },
-    "/v1/level-list": {
+    "/v1/level_list": {
       "get": {
         "description": "Returns a paginated list of levels based on specified criteria. Each page contains 30 items.",
         "parameters": [
@@ -169,12 +169,12 @@
         }
       }
     },
-    "/v1/leaderboard/{level-id}": {
+    "/v1/leaderboard/{level_id}": {
       "get": {
         "description": "Returns the leaderboard entries for a specific level.",
         "parameters": [
           {
-            "name": "level-id",
+            "name": "level_id",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
@@ -196,7 +196,7 @@
             }
           },
           {
-            "name": "userIds",
+            "name": "user_ids",
             "in": "query",
             "description": "Filter by an array of user IDs.",
             "required": false,
@@ -257,7 +257,7 @@
         "description": "Returns the images for given thumbnail IDs.",
         "parameters": [
           {
-            "name": "assetIds",
+            "name": "asset_ids",
             "in": "query",
             "description": "The IDs of the thumbnails.",
             "required": true,
@@ -346,7 +346,7 @@
         }
       }
     },
-    "/v1/users/{user-id}": {
+    "/v1/users/{user_id}": {
       "servers": [
         {
           "url": "https://users.roblox.com"
@@ -356,7 +356,7 @@
         "description": "Returns information about a specific Roblox user.",
         "parameters": [
           {
-            "name": "user-id",
+            "name": "user_id",
             "in": "path",
             "description": "The ID of the user.",
             "required": true,
@@ -409,7 +409,7 @@
             "type": "string"
           },
           "builder": {
-            "description": "The ID of the builder who created the level.",
+            "description": "The ID of the builder.",
             "type": "integer",
             "format": "int32"
           },
@@ -446,7 +446,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "userId": {
+          "user_id": {
             "description": "The ID of the user who created this entry.",
             "type": "integer",
             "format": "int32"
@@ -466,14 +466,14 @@
       "AssetThumbnail": {
         "type": "object",
         "properties": {
-          "targetId": {
+          "target_id": {
             "type": "integer",
             "format": "int64"
           },
           "state": {
             "type": "string"
           },
-          "imageUrl": {
+          "image_url": {
             "type": "string"
           }
         }
@@ -486,7 +486,7 @@
             "format": "int64",
             "description": "The user's user ID."
           },
-          "displayName": {
+          "display_name": {
             "type": "string",
             "description": "The user's display name."
           },
@@ -503,15 +503,15 @@
             "format": "date-time",
             "description": "When the user's profile was created."
           },
-          "hasVerifiedBadge": {
+          "has_verified_badge": {
             "type": "boolean",
             "description": "Whether the user has the verified badge."
           },
-          "isBanned": {
+          "is_banned": {
             "type": "boolean",
             "description": "Whether the user is banned."
           },
-          "externalAppDisplayName": {
+          "external_app_display_name": {
             "type": "string",
             "description": "I've got no idea what this does, sorry."
           }
