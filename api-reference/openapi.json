@@ -137,7 +137,7 @@
                     "pagination": {
                       "type": "object",
                       "properties": {
-                        "total": {
+                        "total_levels": {
                           "type": "integer",
                           "description": "Total number of levels matching the query"
                         },
@@ -171,7 +171,7 @@
     },
     "/v1/leaderboard/{level_id}": {
       "get": {
-        "description": "Returns the leaderboard entries for a specific level.",
+        "description": "Returns the paginated leaderboard entries for a specific level. Each page contains 30 items.",
         "parameters": [
           {
             "name": "level_id",
@@ -184,15 +184,14 @@
             }
           },
           {
-            "name": "limit",
+            "name": "page",
             "in": "query",
-            "description": "The maximum number of entries to return.",
+            "description": "The page number of results to return.",
             "required": false,
             "schema": {
               "type": "integer",
-              "format": "int32",
-              "default": 30,
-              "maximum": 30
+              "minimum": 1,
+              "default": 1
             }
           },
           {
@@ -202,7 +201,6 @@
             "required": false,
             "schema": {
               "type": "array",
-              "default": [],
               "items": {
                 "type": "integer",
                 "format": "int64"
@@ -212,20 +210,42 @@
         ],
         "responses": {
           "200": {
-            "description": "Leaderboard entries",
+            "description": "Paginated leaderboard entries",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/LeaderboardEntry"
+                  "type": "object",
+                  "properties": {
+                    "entries": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/LeaderboardEntry"
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "total_entries": {
+                          "type": "integer",
+                          "description": "Total number of entries matching the query"
+                        },
+                        "page": {
+                          "type": "integer",
+                          "description": "Current page number"
+                        },
+                        "total_pages": {
+                          "type": "integer",
+                          "description": "Total number of pages"
+                        }
+                      }
+                    }
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "Invalid limit parameter",
+            "description": "Invalid parameters",
             "content": {
               "application/json": {
                 "schema": {
