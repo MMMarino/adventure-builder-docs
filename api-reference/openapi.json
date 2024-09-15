@@ -54,7 +54,7 @@
         }
       }
     },
-    "/v1/level_list": {
+    "/v1/level-list": {
       "get": {
         "description": "Returns a paginated list of levels based on specified criteria. Each page contains 30 items.",
         "parameters": [
@@ -196,7 +196,7 @@
             }
           },
           {
-            "name": "user_ids",
+            "name": "userIds",
             "in": "query",
             "description": "Filter by an array of user IDs.",
             "required": false,
@@ -257,7 +257,7 @@
         "description": "Returns the images for given thumbnail IDs.",
         "parameters": [
           {
-            "name": "asset_ids",
+            "name": "assetIds",
             "in": "query",
             "description": "The IDs of the thumbnails.",
             "required": true,
@@ -346,7 +346,7 @@
         }
       }
     },
-    "/v1/users/{user_id}": {
+    "/v1/users/{user-id}": {
       "servers": [
         {
           "url": "https://users.roblox.com"
@@ -356,7 +356,7 @@
         "description": "Returns information about a specific Roblox user.",
         "parameters": [
           {
-            "name": "user_id",
+            "name": "user-id",
             "in": "path",
             "description": "The ID of the user.",
             "required": true,
@@ -409,7 +409,7 @@
             "type": "string"
           },
           "builder": {
-            "description": "The ID of the builder.",
+            "description": "The ID of the builder who created the level.",
             "type": "integer",
             "format": "int32"
           },
@@ -446,7 +446,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "user_id": {
+          "userId": {
             "description": "The ID of the user who created this entry.",
             "type": "integer",
             "format": "int32"
@@ -466,14 +466,14 @@
       "AssetThumbnail": {
         "type": "object",
         "properties": {
-          "target_id": {
+          "targetId": {
             "type": "integer",
             "format": "int64"
           },
           "state": {
             "type": "string"
           },
-          "image_url": {
+          "imageUrl": {
             "type": "string"
           }
         }
@@ -486,7 +486,7 @@
             "format": "int64",
             "description": "The user's user ID."
           },
-          "display_name": {
+          "displayName": {
             "type": "string",
             "description": "The user's display name."
           },
@@ -503,15 +503,15 @@
             "format": "date-time",
             "description": "When the user's profile was created."
           },
-          "has_verified_badge": {
+          "hasVerifiedBadge": {
             "type": "boolean",
             "description": "Whether the user has the verified badge."
           },
-          "is_banned": {
+          "isBanned": {
             "type": "boolean",
             "description": "Whether the user is banned."
           },
-          "external_app_display_name": {
+          "externalAppDisplayName": {
             "type": "string",
             "description": "I've got no idea what this does, sorry."
           }
