@@ -1,0 +1,42 @@
+---
+title: 'Converting IDs into Data'
+description: 'Transforming numeric IDs into valuable information'
+---
+
+<img src="/images/Image3.png" alt="Conversion Example" />
+
+When using various endpoints, you might notice that instead of receiving usernames directly, you receive numeric IDs. 
+
+To convert these IDs into meaningful information, you can use Roblox’s user and asset endpoints.
+
+## Converting User IDs to Usernames
+
+In Roblox, you can convert a user ID to a username using the `Players` service. Here's how you can do it:
+
+```lua username.lua
+local Players = game:GetService("Players")
+local user_id = 1498851024 -- Replace with the ID of the user
+
+-- Retrieve the username from the user ID
+local username = Players:GetNameFromUserIdAsync(user_id)
+
+-- Output the username to the console
+print(username)
+```
+
+If you're working outside of Roblox, you can achieve the same result using their API endpoint: 
+<Card title="Roblox User Endpoint" icon="user" href="api-reference/external/user"></Card>
+
+## Getting Thumbnails
+If you’re working within Roblox, you can use the provided thumbnail ID directly in your scripts. Here's an example script, parent it to a Decal.
+
+<Note>Make sure to include "rbxassetid://" in front of the ID.</Note>
+
+```lua thumbnail.lua
+local thumbnail_id = 124996194907131 -- Replace with the thumbnail ID
+
+-- Set the texture using the thumbnail ID
+script.Parent.Texture = "rbxassetid://" .. thumbnail_id
+```
+
+For external use, you can leverage Roblox’s asset API to fetch thumbnails: <Card title="Roblox Asset Endpoint" icon="image" href="api-reference/external/thumbnail"></Card>
