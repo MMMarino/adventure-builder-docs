@@ -5,6 +5,8 @@ description: Learn how to use instant invites for seamless level redirection.
 
 Instead of telling users to join a specific level by its ID, you can create a sleek redirect button!
 
+## Externally
+
 Use the following URL format to redirect users directly to a level:
 
 ```
@@ -13,12 +15,12 @@ https://invite.adventure-builder.net/{level_id}
 
 When users click this link, Roblox will launch and prompt them to play the specified level.
 
-# On Roblox
+## On Roblox
 <Note>Make sure to enable **"Allow Third-Party Teleports"** in *Game Settings* -> *Security*.</Note>
 
 If you want to redirect users from within your Roblox game, you can achieve this using [TeleportService](https://create.roblox.com/docs/reference/engine/classes/TeleportService). Here's how you can set up the teleportation with level data:
 
-```lua Redirect.lua (Server)
+```lua redirect.lua (Server)
 local TeleportService = game:GetService("TeleportService")
 local game = 15498261012 -- Adventure Builder
 
@@ -32,10 +34,11 @@ teleportData:SetTeleportData({level_id = target})
 -- Teleport the player
 TeleportService:Teleport(game, player, teleportData)
 ```
+<Note>**TeleportService:Teleport()** can only be invoked on the server.</Note>
 
 And voilà! You've now implemented a stylish way to redirect players to a specific level.
 
-## Common issues
+### Common issues
 <Accordion title="Nothing happens when I try to teleport.">
   TeleportService won't teleport you when you're in studio, make sure to test it in-game.
 </Accordion>
