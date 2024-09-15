@@ -3,7 +3,7 @@ title: Redirecting Users to Levels
 description: Learn how to use instant invites for seamless level redirection.
 ---
 
-Instead of directing users to join a specific level by its ID, you can create a sleek redirect button!
+Instead of telling users to join a specific level by its ID, you can create a sleek redirect button!
 
 Use the following URL format to redirect users directly to a level:
 
@@ -22,7 +22,7 @@ If you want to redirect users from within your Roblox game, you can achieve this
 local TeleportService = game:GetService("TeleportService")
 local game = 15498261012 -- Adventure Builder
 
-local player = game.Players.GetPlayers()[1] -- Get a player
+local player = game.Players:GetPlayers()[1] -- Get a player
 local target = 0 -- Replace with the level ID you wanna teleport to.
 
 -- Set the teleport data
@@ -33,7 +33,7 @@ teleportData:SetTeleportData({level_id = target})
 TeleportService:Teleport(game, player, teleportData)
 ```
 
-And voilà! You've now implemented a stylish way to redirect players to a specific level. Good job! 🥂
+And voilà! You've now implemented a stylish way to redirect players to a specific level.
 
 ## Common issues
 <Accordion title="Nothing happens when I try to teleport.">
