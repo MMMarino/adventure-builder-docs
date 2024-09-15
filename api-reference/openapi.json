@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://api.adventure-builder.net"
+      "url": "https://api.adventure-builder.net"
     }
   ],
   "security": [],
