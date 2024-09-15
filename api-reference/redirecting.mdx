@@ -27,7 +27,7 @@ local target = 0 -- Replace with the level ID you wanna teleport to.
 
 -- Set the teleport data
 local teleportData = Instance.new("TeleportOptions")
-teleportData:SetTeleportData({level_Id = target})
+teleportData:SetTeleportData({level_id = target})
 
 -- Teleport the player
 TeleportService:Teleport(game, player, teleportData)
