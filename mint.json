@@ -56,8 +56,8 @@
         {
       "group": "Multiplayer Endpoints",
       "pages": [
-        "api-reference/endpoints/multiplayer/room",
-        "api-reference/endpoints/multiplayer/room-list",
+        "api-reference/endpoints/multiplayer/party",
+        "api-reference/endpoints/multiplayer/party-list",
       ]
     },
     {
