@@ -50,7 +50,7 @@
       "pages": [
         "api-reference/endpoints/levels/level",
         "api-reference/endpoints/levels/level-list",
-        "api-reference/endpoint/levels/leaderboard"
+        "api-reference/endpoints/levels/leaderboard"
       ]
     },
         {
