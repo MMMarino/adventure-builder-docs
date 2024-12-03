@@ -409,6 +409,433 @@
           }
         }
       }
+    },
+    "/v1/multiplayer/party-list": {
+      "get": {
+        "description": "Returns a list of all available parties.",
+        "responses": {
+          "200": {
+            "description": "List of all public parties",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Party"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No parties found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/multiplayer/party/{party_id}": {
+      "get": {
+        "description": "Returns information about a specific party.",
+        "parameters": [
+          {
+            "name": "party_id",
+            "in": "path",
+            "description": "The ID of the party.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Party information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Party"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Party not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/multiplayer/party/create": {
+      "post": {
+        "description": "Creates a new party.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "creator_id"
+                ],
+                "properties": {
+                  "creator_id": {
+                    "type": "integer",
+                    "description": "The ID of the player creating the party"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "public",
+                      "friends"
+                    ],
+                    "default": "public"
+                  },
+                  "max_players": {
+                    "type": "integer",
+                    "minimum": 2,
+                    "maximum": 5,
+                    "default": 5
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Party created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Party"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Invalid authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/multiplayer/party/join": {
+      "post": {
+        "description": "Joins an existing party.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "party_id",
+                  "player_id"
+                ],
+                "properties": {
+                  "party_id": {
+                    "type": "integer",
+                    "description": "The ID of the party to join"
+                  },
+                  "player_id": {
+                    "type": "integer",
+                    "description": "The ID of the player joining"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully joined party",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request or party is full/locked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Invalid authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Party not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/multiplayer/party/leave": {
+      "post": {
+        "description": "Leaves a party. If the creator leaves, the party is deleted.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "party_id",
+                  "player_id"
+                ],
+                "properties": {
+                  "party_id": {
+                    "type": "integer",
+                    "description": "The ID of the party to leave"
+                  },
+                  "player_id": {
+                    "type": "integer",
+                    "description": "The ID of the player leaving"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully left party",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request or party is locked",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Invalid authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Party not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/multiplayer/party/teleport": {
+      "post": {
+        "description": "Teleports all party members to a specific server.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "party_id",
+                  "server_code"
+                ],
+                "properties": {
+                  "party_id": {
+                    "type": "integer",
+                    "description": "The ID of the party to teleport"
+                  },
+                  "server_code": {
+                    "type": "string",
+                    "description": "The server code to teleport to"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully initiated teleport",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request or party has less than 2 players",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Invalid authentication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Party not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -455,6 +882,61 @@
             "description": "The timestamp when the level was created.",
             "type": "string",
             "format": "date-time"
+          }
+        }
+      },
+      "Party": {
+        "type": "object",
+        "required": [
+          "id",
+          "creator_id",
+          "players"
+        ],
+        "properties": {
+          "id": {
+            "description": "The unique ID of the party.",
+            "type": "integer",
+            "format": "int32"
+          },
+          "creator_id": {
+            "description": "The ID of the player who created the party.",
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "description": "The type of party.",
+            "type": "string",
+            "enum": [
+              "public",
+              "friends"
+            ]
+          },
+          "max_players": {
+            "description": "Maximum number of players allowed in the party.",
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 5
+          },
+          "players": {
+            "description": "Array of player IDs currently in the party.",
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "locked": {
+            "description": "Whether the party is locked (in game).",
+            "type": "boolean"
+          },
+          "created_at": {
+            "description": "The timestamp when the party was created.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "server_code": {
+            "description": "The server code where the party is located (only visible with auth).",
+            "type": "string"
           }
         }
       },
