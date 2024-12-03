@@ -48,16 +48,16 @@
     {
       "group": "Level Endpoints",
       "pages": [
-        "api-reference/endpoint/level",
-        "api-reference/endpoint/level-list",
-        "api-reference/endpoint/leaderboard"
+        "api-reference/endpoints/levels/level",
+        "api-reference/endpoints/levels/level-list",
+        "api-reference/endpoint/levels/leaderboard"
       ]
     },
         {
       "group": "Multiplayer Endpoints",
       "pages": [
-        "api-reference/endpoint/room",
-        "api-reference/endpoint/room-list",
+        "api-reference/endpoints/multiplayer/room",
+        "api-reference/endpoints/multiplayer/room-list",
       ]
     },
     {
