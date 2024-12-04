@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Adventure Builder API",
-    "description": "An API for retrieving levels, leaderboards, assets, and user information in the Adventure Builder game.",
+    "description": "An API for retrieving levels, leaderboards, assets, and managing multiplayer lobbies in the Adventure Builder game.",
     "license": {
       "name": "MIT"
     },
@@ -15,34 +15,48 @@
   ],
   "security": [],
   "paths": {
-    "/v1/level/{level_id}": {
+    "/v1/levels/{ids}": {
       "get": {
-        "description": "Returns the data of a specific level by its ID.",
+        "description": "Returns the data of specific levels by their IDs (max 10 IDs).",
         "parameters": [
           {
-            "name": "level_id",
+            "name": "ids",
             "in": "path",
-            "description": "The ID of the level.",
+            "description": "Comma-separated list of level IDs (max 10).",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string",
+              "pattern": "^[0-9]+(,[0-9]+)*$",
+              "example": "1,2,3"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Level response",
+            "description": "Array of level data",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Level"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Level"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID format or too many IDs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
           },
           "404": {
-            "description": "Level not found",
+            "description": "No levels found",
             "content": {
               "application/json": {
                 "schema": {
@@ -54,7 +68,7 @@
         }
       }
     },
-    "/v1/level-list": {
+    "/v1/levels": {
       "get": {
         "description": "Returns a paginated list of levels based on specified criteria. Each page contains 30 items.",
         "parameters": [
@@ -135,33 +149,9 @@
                       }
                     },
                     "pagination": {
-                      "type": "object",
-                      "properties": {
-                        "total_levels": {
-                          "type": "integer",
-                          "description": "Total number of levels matching the query"
-                        },
-                        "page": {
-                          "type": "integer",
-                          "description": "Current page number"
-                        },
-                        "total_pages": {
-                          "type": "integer",
-                          "description": "Total number of pages"
-                        }
-                      }
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid parameters",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -197,7 +187,7 @@
           {
             "name": "userIds",
             "in": "query",
-            "description": "Filter by an array of user IDs.",
+            "description": "Filter by specific user IDs.",
             "required": false,
             "schema": {
               "type": "array",
@@ -223,39 +213,15 @@
                       }
                     },
                     "pagination": {
-                      "type": "object",
-                      "properties": {
-                        "total_entries": {
-                          "type": "integer",
-                          "description": "Total number of entries matching the query"
-                        },
-                        "page": {
-                          "type": "integer",
-                          "description": "Current page number"
-                        },
-                        "total_pages": {
-                          "type": "integer",
-                          "description": "Total number of pages"
-                        }
-                      }
+                      "$ref": "#/components/schemas/Pagination"
                     }
                   }
                 }
               }
             }
           },
-          "400": {
-            "description": "Invalid parameters",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
           "404": {
-            "description": "No leaderboard entries found for this level",
+            "description": "No leaderboard entries found",
             "content": {
               "application/json": {
                 "schema": {
@@ -410,64 +376,61 @@
         }
       }
     },
-    "/v1/multiplayer/party-list": {
+    "/v1/lobbies": {
       "get": {
-        "description": "Returns a list of all available parties.",
-        "responses": {
-          "200": {
-            "description": "List of all public parties",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Party"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No parties found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/multiplayer/party/{party_id}": {
-      "get": {
-        "description": "Returns information about a specific party.",
+        "description": "Returns a list of all available lobbies with optional filters.",
         "parameters": [
           {
-            "name": "party_id",
-            "in": "path",
-            "description": "The ID of the party.",
-            "required": true,
+            "name": "max_players",
+            "in": "query",
+            "description": "Filter lobbies by maximum player count.",
+            "required": false,
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "minimum": 2,
+              "maximum": 5
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "Filter lobbies by type.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "public",
+                "friends"
+              ]
+            }
+          },
+          {
+            "name": "player",
+            "in": "query",
+            "description": "Filter lobbies containing specific player ID.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Party information",
+            "description": "List of all matching lobbies",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Party"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Lobby"
+                  }
                 }
               }
             }
           },
-          "404": {
-            "description": "Party not found",
+          "400": {
+            "description": "Invalid filter parameters",
             "content": {
               "application/json": {
                 "schema": {
@@ -479,9 +442,62 @@
         }
       }
     },
-    "/v1/multiplayer/party/create": {
+    "/v1/lobbies/{ids}": {
+      "get": {
+        "description": "Returns information about specific lobbies (max 10 IDs).",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "path",
+            "description": "Comma-separated list of lobby IDs (max 10).",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]+(,[0-9]+)*$",
+              "example": "1,2,3"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of lobby information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Lobby"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID format or too many IDs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No lobbies found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/lobbies/create": {
       "post": {
-        "description": "Creates a new party.",
+        "description": "Creates a new lobby.",
         "security": [
           {
             "bearerAuth": []
@@ -499,7 +515,7 @@
                 "properties": {
                   "creator_id": {
                     "type": "integer",
-                    "description": "The ID of the player creating the party"
+                    "description": "The ID of the player creating the lobby"
                   },
                   "type": {
                     "type": "string",
@@ -522,11 +538,11 @@
         },
         "responses": {
           "200": {
-            "description": "Party created successfully",
+            "description": "Lobby created successfully",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Party"
+                  "$ref": "#/components/schemas/Lobby"
                 }
               }
             }
@@ -564,9 +580,9 @@
         }
       }
     },
-    "/v1/multiplayer/party/join": {
+    "/v1/lobbies/join": {
       "post": {
-        "description": "Joins an existing party.",
+        "description": "Joins an existing lobby.",
         "security": [
           {
             "bearerAuth": []
@@ -579,13 +595,13 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "party_id",
+                  "lobby_id",
                   "player_id"
                 ],
                 "properties": {
-                  "party_id": {
+                  "lobby_id": {
                     "type": "integer",
-                    "description": "The ID of the party to join"
+                    "description": "The ID of the lobby to join"
                   },
                   "player_id": {
                     "type": "integer",
@@ -598,7 +614,7 @@
         },
         "responses": {
           "200": {
-            "description": "Successfully joined party",
+            "description": "Successfully joined lobby",
             "content": {
               "application/json": {
                 "schema": {
@@ -613,7 +629,7 @@
             }
           },
           "400": {
-            "description": "Invalid request or party is full/locked",
+            "description": "Invalid request or lobby is full/locked",
             "content": {
               "application/json": {
                 "schema": {
@@ -643,7 +659,7 @@
             }
           },
           "404": {
-            "description": "Party not found",
+            "description": "Lobby not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -655,9 +671,9 @@
         }
       }
     },
-    "/v1/multiplayer/party/leave": {
+    "/v1/lobbies/leave": {
       "post": {
-        "description": "Leaves a party. If the creator leaves, the party is deleted.",
+        "description": "Leaves a lobby. If the creator leaves, the lobby is deleted.",
         "security": [
           {
             "bearerAuth": []
@@ -670,13 +686,13 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "party_id",
+                  "lobby_id",
                   "player_id"
                 ],
                 "properties": {
-                  "party_id": {
+                  "lobby_id": {
                     "type": "integer",
-                    "description": "The ID of the party to leave"
+                    "description": "The ID of the lobby to leave"
                   },
                   "player_id": {
                     "type": "integer",
@@ -689,7 +705,7 @@
         },
         "responses": {
           "200": {
-            "description": "Successfully left party",
+            "description": "Successfully left lobby",
             "content": {
               "application/json": {
                 "schema": {
@@ -704,7 +720,7 @@
             }
           },
           "400": {
-            "description": "Invalid request or party is locked",
+            "description": "Invalid request or lobby is locked",
             "content": {
               "application/json": {
                 "schema": {
@@ -734,7 +750,7 @@
             }
           },
           "404": {
-            "description": "Party not found",
+            "description": "Lobby not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -746,9 +762,9 @@
         }
       }
     },
-    "/v1/multiplayer/party/teleport": {
+    "/v1/lobbies/teleport": {
       "post": {
-        "description": "Teleports all party members to a specific server.",
+        "description": "Teleports all lobby members to a specific server.",
         "security": [
           {
             "bearerAuth": []
@@ -761,13 +777,13 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "party_id",
+                  "lobby_id",
                   "server_code"
                 ],
                 "properties": {
-                  "party_id": {
+                  "lobby_id": {
                     "type": "integer",
-                    "description": "The ID of the party to teleport"
+                    "description": "The ID of the lobby to teleport"
                   },
                   "server_code": {
                     "type": "string",
@@ -795,7 +811,7 @@
             }
           },
           "400": {
-            "description": "Invalid request or party has less than 2 players",
+            "description": "Invalid request or lobby has less than 2 players",
             "content": {
               "application/json": {
                 "schema": {
@@ -825,7 +841,7 @@
             }
           },
           "404": {
-            "description": "Party not found",
+            "description": "Lobby not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -885,7 +901,7 @@
           }
         }
       },
-      "Party": {
+      "Lobby": {
         "type": "object",
         "required": [
           "id",
@@ -894,17 +910,17 @@
         ],
         "properties": {
           "id": {
-            "description": "The unique ID of the party.",
+            "description": "The unique ID of the lobby.",
             "type": "integer",
             "format": "int32"
           },
           "creator_id": {
-            "description": "The ID of the player who created the party.",
+            "description": "The ID of the player who created the lobby.",
             "type": "integer",
             "format": "int32"
           },
           "type": {
-            "description": "The type of party.",
+            "description": "The type of lobby.",
             "type": "string",
             "enum": [
               "public",
@@ -912,13 +928,13 @@
             ]
           },
           "max_players": {
-            "description": "Maximum number of players allowed in the party.",
+            "description": "Maximum number of players allowed in the lobby.",
             "type": "integer",
             "minimum": 2,
             "maximum": 5
           },
           "players": {
-            "description": "Array of player IDs currently in the party.",
+            "description": "Array of player IDs currently in the lobby.",
             "type": "array",
             "items": {
               "type": "integer",
@@ -926,16 +942,16 @@
             }
           },
           "locked": {
-            "description": "Whether the party is locked (in game).",
+            "description": "Whether the lobby is locked (in game).",
             "type": "boolean"
           },
           "created_at": {
-            "description": "The timestamp when the party was created.",
+            "description": "The timestamp when the lobby was created.",
             "type": "string",
             "format": "date-time"
           },
           "server_code": {
-            "description": "The server code where the party is located (only visible with auth).",
+            "description": "The server code where the lobby is located (only visible with auth).",
             "type": "string"
           }
         }
@@ -1015,23 +1031,36 @@
           },
           "externalAppDisplayName": {
             "type": "string",
-            "description": "I've got no idea what this does, sorry."
+            "description": "The user's display name in external applications."
+          }
+        }
+      },
+      "Pagination": {
+        "type": "object",
+        "properties": {
+          "total_entries": {
+            "type": "integer",
+            "description": "Total number of items matching the query"
+          },
+          "page": {
+            "type": "integer",
+            "description": "Current page number"
+          },
+          "total_pages": {
+            "type": "integer",
+            "description": "Total number of pages"
           }
         }
       },
       "Error": {
         "required": [
-          "error",
-          "message"
+          "error"
         ],
         "type": "object",
         "properties": {
           "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
+            "type": "string",
+            "description": "Error message"
           }
         }
       }
