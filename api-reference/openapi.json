@@ -162,12 +162,12 @@
         }
       }
     },
-    "/v1/leaderboard/{level_id}": {
+    "/v1/leaderboard/{levelId}": {
       "get": {
         "description": "Returns the paginated leaderboard entries for a specific level. Each page contains 30 items.",
         "parameters": [
           {
-            "name": "level_id",
+            "name": "levelId",
             "in": "path",
             "description": "The ID of the level.",
             "required": true,
@@ -236,155 +236,12 @@
         }
       }
     },
-    "/v1/assets": {
-      "servers": [
-        {
-          "url": "https://thumbnails.roblox.com"
-        }
-      ],
-      "get": {
-        "description": "Returns the images for given thumbnail IDs.",
-        "parameters": [
-          {
-            "name": "assetIds",
-            "in": "query",
-            "description": "The IDs of the thumbnails.",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "description": "The size of the thumbnail.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "30x30",
-                "42x42",
-                "50x50",
-                "60x62",
-                "75x75",
-                "110x110",
-                "140x140",
-                "150x150",
-                "160x100",
-                "160x600",
-                "250x250",
-                "256x144",
-                "300x250",
-                "304x166",
-                "384x216",
-                "396x216",
-                "420x420",
-                "480x270",
-                "512x512",
-                "576x324",
-                "700x700",
-                "728x90",
-                "768x432",
-                "1200x80"
-              ]
-            }
-          },
-          {
-            "name": "format",
-            "in": "query",
-            "description": "The format of the thumbnail.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "Png",
-                "Jpeg",
-                "Webp"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Asset thumbnail response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/AssetThumbnail"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/users/{user-id}": {
-      "servers": [
-        {
-          "url": "https://users.roblox.com"
-        }
-      ],
-      "get": {
-        "description": "Returns information about a specific Roblox user.",
-        "parameters": [
-          {
-            "name": "user-id",
-            "in": "path",
-            "description": "The ID of the user.",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "User information response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserInfo"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "User not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v1/lobbies": {
       "get": {
         "description": "Returns a list of all available lobbies with optional filters.",
         "parameters": [
           {
-            "name": "max_players",
+            "name": "maxPlayers",
             "in": "query",
             "description": "Filter lobbies by maximum player count.",
             "required": false,
@@ -501,80 +358,94 @@
         }
       }
     },
-    "/v1/lobbies/create": {
-      "post": {
-        "description": "Creates a new lobby.",
-        "security": [
+    "/v1/assets": {
+      "servers": [
+        {
+          "url": "https://thumbnails.roblox.com"
+        }
+      ],
+      "get": {
+        "description": "Returns the images for given thumbnail IDs.",
+        "parameters": [
           {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "creator_id"
-                ],
-                "properties": {
-                  "creator_id": {
-                    "type": "integer",
-                    "description": "The ID of the player creating the lobby"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "public",
-                      "friends"
-                    ],
-                    "default": "public"
-                  },
-                  "max_players": {
-                    "type": "integer",
-                    "minimum": 2,
-                    "maximum": 5,
-                    "default": 5
-                  }
-                }
+            "name": "assetIds",
+            "in": "query",
+            "description": "The IDs of the thumbnails.",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64"
               }
             }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the thumbnail.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "30x30",
+                "42x42",
+                "50x50",
+                "60x62",
+                "75x75",
+                "110x110",
+                "140x140",
+                "150x150",
+                "160x100",
+                "160x600",
+                "250x250",
+                "256x144",
+                "300x250",
+                "304x166",
+                "384x216",
+                "396x216",
+                "420x420",
+                "480x270",
+                "512x512",
+                "576x324",
+                "700x700",
+                "728x90",
+                "768x432",
+                "1200x80"
+              ]
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "The format of the thumbnail.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "Png",
+                "Jpeg",
+                "Webp"
+              ]
+            }
           }
-        },
+        ],
         "responses": {
           "200": {
-            "description": "Lobby created successfully",
+            "description": "Asset thumbnail response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Lobby"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AssetThumbnail"
+                  }
                 }
               }
             }
           },
           "400": {
-            "description": "Invalid request parameters",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Missing authentication",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Invalid authentication",
+            "description": "Bad request",
             "content": {
               "application/json": {
                 "schema": {
@@ -586,268 +457,39 @@
         }
       }
     },
-    "/v1/lobbies/join": {
-      "post": {
-        "description": "Joins an existing lobby.",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "lobby_id",
-                  "player_id"
-                ],
-                "properties": {
-                  "lobby_id": {
-                    "type": "integer",
-                    "description": "The ID of the lobby to join"
-                  },
-                  "player_id": {
-                    "type": "integer",
-                    "description": "The ID of the player joining"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successfully joined lobby",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid request or lobby is full/locked",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Missing authentication",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Invalid authentication",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Lobby not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
+    "/v1/users/{userId}": {
+      "servers": [
+        {
+          "url": "https://users.roblox.com"
         }
-      }
-    },
-    "/v1/lobbies/leave": {
-      "post": {
-        "description": "Leaves a lobby. If the creator leaves, the lobby is deleted.",
-        "security": [
+      ],
+      "get": {
+        "description": "Returns information about a specific Roblox user.",
+        "parameters": [
           {
-            "bearerAuth": []
+            "name": "userId",
+            "in": "path",
+            "description": "The ID of the user.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
         ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "lobby_id",
-                  "player_id"
-                ],
-                "properties": {
-                  "lobby_id": {
-                    "type": "integer",
-                    "description": "The ID of the lobby to leave"
-                  },
-                  "player_id": {
-                    "type": "integer",
-                    "description": "The ID of the player leaving"
-                  }
-                }
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
-            "description": "Successfully left lobby",
+            "description": "User information response",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid request or lobby is locked",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Missing authentication",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Invalid authentication",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "$ref": "#/components/schemas/UserInfo"
                 }
               }
             }
           },
           "404": {
-            "description": "Lobby not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/lobbies/teleport": {
-      "post": {
-        "description": "Teleports all lobby members to a specific server.",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": [
-                  "lobby_id",
-                  "server_code"
-                ],
-                "properties": {
-                  "lobby_id": {
-                    "type": "integer",
-                    "description": "The ID of the lobby to teleport"
-                  },
-                  "server_code": {
-                    "type": "string",
-                    "description": "The server code to teleport to"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successfully initiated teleport",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "success": {
-                      "type": "boolean"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid request or lobby has less than 2 players",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Missing authentication",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Invalid authentication",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Lobby not found",
+            "description": "User not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -900,7 +542,7 @@
             "description": "The theme of the level.",
             "type": "string"
           },
-          "created_at": {
+          "createdAt": {
             "description": "The timestamp when the level was created.",
             "type": "string",
             "format": "date-time"
@@ -911,7 +553,7 @@
         "type": "object",
         "required": [
           "id",
-          "creator_id",
+          "creatorId",
           "players"
         ],
         "properties": {
@@ -920,7 +562,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "creator_id": {
+          "creatorId": {
             "description": "The ID of the player who created the lobby.",
             "type": "integer",
             "format": "int32"
@@ -933,7 +575,7 @@
               "friends"
             ]
           },
-          "max_players": {
+          "maxPlayers": {
             "description": "Maximum number of players allowed in the lobby.",
             "type": "integer",
             "minimum": 2,
@@ -951,12 +593,12 @@
             "description": "Whether the lobby is locked (in game).",
             "type": "boolean"
           },
-          "created_at": {
+          "createdAt": {
             "description": "The timestamp when the lobby was created.",
             "type": "string",
             "format": "date-time"
           },
-          "server_code": {
+          "serverCode": {
             "description": "The server code where the lobby is located (only visible with auth).",
             "type": "string"
           }
@@ -980,7 +622,7 @@
             "type": "number",
             "format": "float"
           },
-          "created_at": {
+          "createdAt": {
             "description": "The timestamp when this entry was created.",
             "type": "string",
             "format": "date-time"
@@ -1044,7 +686,7 @@
       "Pagination": {
         "type": "object",
         "properties": {
-          "total_entries": {
+          "totalEntries": {
             "type": "integer",
             "description": "Total number of items matching the query"
           },
@@ -1052,7 +694,7 @@
             "type": "integer",
             "description": "Current page number"
           },
-          "total_pages": {
+          "totalPages": {
             "type": "integer",
             "description": "Total number of pages"
           }
@@ -1069,12 +711,6 @@
             "description": "Error message"
           }
         }
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
       }
     }
   }
