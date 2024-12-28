@@ -36,12 +36,12 @@
   },
   "tabs": [
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "Advanced Editor",
+      "url": "advanced-editor"
     },
     {
       "name": "Interactions",
-      "url": "interactions"
+      "url": "api-reference"
     }
   ],
   "anchors": [],
@@ -83,9 +83,9 @@
       ]
     },
     {
-      "group": "Interaction Docs",
+      "group": "Advanced Editor Docs",
       "pages": [
-        "interactions/introduction"
+        "advanced-editor/introduction"
       ]
     }
   ],
