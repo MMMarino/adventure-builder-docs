@@ -41,7 +41,7 @@
     },
     {
       "name": "Interactions",
-      "url": "interactions/introduction"
+      "url": "interactions"
     }
   ],
   "anchors": [],
@@ -80,6 +80,12 @@
       "group": "Legal",
       "pages": [
         "api-reference/legal/tos"
+      ]
+    },
+    {
+      "group": "Interaction Docs",
+      "pages": [
+        "interactions/introduction"
       ]
     }
   ],
