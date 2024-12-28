@@ -36,11 +36,11 @@
   },
   "tabs": [
     {
-      "name": "Interactions",
+      "name": "API Reference",
       "url": "api-reference"
     },
     {
-      "name": "API Reference",
+      "name": "Interactions",
       "url": "api-reference/endpoints/levels/leaderboard"
     }
   ],
