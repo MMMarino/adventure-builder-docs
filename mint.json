@@ -9,6 +9,7 @@
     "light": "/logo/light.png"
   },
   "favicon": "/favicon.png",
+  "theme": "venus",
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
