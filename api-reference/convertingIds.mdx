@@ -3,15 +3,15 @@ title: 'Converting IDs into Data'
 description: 'Transforming numeric IDs into valuable information'
 ---
 
-<img src="/images/Image2.png" alt="Conversion Example" />
+![Conversion Example](/images/api-reference/convertingIds.png)
 
-When using various endpoints, you might notice that instead of receiving usernames directly, you receive numeric IDs. 
+When using various endpoints, you might notice that instead of receiving usernames directly, you receive numeric IDs.
 
 To convert these IDs into meaningful information, you can use Roblox’s user and asset endpoints.
 
 ## Converting User IDs to Usernames
 
-In Roblox, you can convert a user ID to a username using the [Players](https://create.roblox.com/docs/reference/engine/classes/Players) service.  
+In Roblox, you can convert a user ID to a username using the [Players](https://create.roblox.com/docs/reference/engine/classes/Players) service.
 Here's an example of how you could do it:
 
 ```lua username.lua
@@ -25,10 +25,12 @@ local username = Players:GetNameFromUserIdAsync(user_id)
 print(username)
 ```
 
-If you're working outside of Roblox, you can achieve the same result using their API endpoint: 
-<Card title="Roblox User Endpoint" icon="user" href="/api-reference/external/user"></Card>
+If you're working outside of Roblox, you can achieve the same result using their API endpoint:
+
+<Card title="Roblox User Endpoint" icon="user" href="/api-reference/external/user" />
 
 ## Getting Thumbnails
+
 If you’re working within Roblox, you can use the provided thumbnail ID directly in your scripts. Here's an example script, parent it to a Decal.
 
 <Note>Make sure to include "rbxassetid://" in front of the ID.</Note>
@@ -40,4 +42,4 @@ local thumbnail_id = 124996194907131 -- Replace with the thumbnail ID
 script.Parent.Texture = "rbxassetid://" .. thumbnail_id
 ```
 
-For external use, you can leverage Roblox’s asset API to fetch thumbnails: <Card title="Roblox Asset Endpoint" icon="image" href="/api-reference/external/thumbnail"></Card>
+For external use, you can leverage Roblox’s asset API to fetch thumbnails: <Card title="Roblox Asset Endpoint" icon="image" href="/api-reference/external/thumbnail" />
