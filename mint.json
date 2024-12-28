@@ -34,7 +34,16 @@
     "url": "https://www.roblox.com/games/15498261012/Adventure-Builder",
     "style": "roundedRectangle"
   },
-  "tabs": [],
+  "tabs": [
+    {
+      "name": "Interactions",
+      "url": "api-reference"
+    },
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
+  ],
   "anchors": [],
   "navigation": [
     {
