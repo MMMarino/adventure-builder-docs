@@ -5,16 +5,16 @@
     "og:site_name": "⭐ Adventure Builder"
   },
   "logo": {
-    "dark": "/logo/dark.png",
-    "light": "/logo/light.png"
+    "dark": "/assets/logo/dark.png",
+    "light": "/assets/logo/light.png"
   },
-  "favicon": "/favicon.png",
+  "favicon": "/assets/logo/favicon.png",
   "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
     "dark": "#949494",
     "background": {
-      "light": "#fafafa",
+      "light": "#f6f6f6",
       "dark": "#353535"
     },
     "anchors": {
@@ -40,14 +40,14 @@
       "url": "advanced-editor"
     },
     {
-      "name": "Interactions",
+      "name": "API Reference",
       "url": "api-reference"
     }
   ],
   "anchors": [],
   "navigation": [
     {
-      "group": "API Documentation",
+      "group": "Getting Started",
       "pages": [
         "api-reference/introduction",
         "api-reference/convertingIds",
@@ -55,16 +55,11 @@
       ]
     },
     {
-      "group": "Level Endpoints",
+      "group": "Endpoints",
       "pages": [
         "api-reference/endpoints/levels/level",
         "api-reference/endpoints/levels/level-list",
-        "api-reference/endpoints/levels/leaderboard"
-      ]
-    },
-        {
-      "group": "Multiplayer Endpoints",
-      "pages": [
+        "api-reference/endpoints/levels/leaderboard",
         "api-reference/endpoints/multiplayer/lobby",
         "api-reference/endpoints/multiplayer/lobby-list"
       ]
@@ -83,7 +78,7 @@
       ]
     },
     {
-      "group": "Advanced Editor Docs",
+      "group": "Getting Started",
       "pages": [
         "advanced-editor/introduction"
       ]
