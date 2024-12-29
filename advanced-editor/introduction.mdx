@@ -15,20 +15,18 @@ The Roblox Studio plugin integrates directly with Adventure Builder, allowing yo
 
 With the Interactions feature, you can add custom Lua code to make your levels more dynamic and engaging.
 
-<div className="flex flex-col items-center space-y-4">
-  <Button href="https://google.com" size="lg" className="w-full max-w-sm">
-    Get the Plugin
-  </Button>
-  
-  <div className="flex space-x-4">
-    <Button href="https://google.com" variant="outline" size="sm">
-      Quickstart
-    </Button>
-    <Button href="https://google.com" variant="outline" size="sm">
-      How to use Interactions
-    </Button>
-    <Button href="https://google.com" variant="outline" size="sm">
-      How to Build
-    </Button>
-  </div>
-</div>
+<Card title="Get the Plugin" icon="download" href="https://google.com">
+  Get the Plugin
+</Card>
+
+<CardGroup cols={3}>
+  <Card title="Quickstart" icon="bolt" href="https://google.com">
+    Learn the basics
+  </Card>
+  <Card title="How to use Interactions" icon="code" href="https://google.com">
+    Add custom code to your levels
+  </Card>
+  <Card title="How to Build" icon="cube" href="https://google.com">
+    Build amazing levels
+  </Card>
+</CardGroup>
