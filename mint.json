@@ -80,7 +80,8 @@
     {
       "group": "Getting Started",
       "pages": [
-        "advanced-editor/introduction"
+        "advanced-editor/introduction",
+        "advanced-editor/quickstart"
       ]
     }
   ],
