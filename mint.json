@@ -72,13 +72,6 @@
       "pages": [
         "api-reference/legal/tos"
       ]
-    },
-    {
-      "group": "Getting Started",
-      "pages": [
-        "advanced-editor/introduction",
-        "advanced-editor/quickstart"
-      ]
     }
   ],
   "footerSocials": {}
