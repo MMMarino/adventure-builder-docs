@@ -36,10 +36,6 @@
   },
   "tabs": [
     {
-      "name": "Advanced Editor",
-      "url": "advanced-editor"
-    },
-    {
       "name": "API Reference",
       "url": "api-reference"
     }
